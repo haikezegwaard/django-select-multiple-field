@@ -15,6 +15,8 @@ except ImportError:
     def format_html(format_string, *args, **kwargs):
         return format_string.format(*args, **kwargs)
 
+from django.contrib.admin.widgets import FilteredSelectMultiple
+
 
 HTML_ATTR_CLASS = 'select-multiple-field'
 
@@ -49,4 +51,17 @@ class SelectMultipleField(widgets.SelectMultiple):
         Returns list or None
         """
         return super(SelectMultipleField, self).value_from_datadict(
+            data, files, name)
+
+
+class FilteredSelectMultipleField(FilteredSelectMultiple):
+
+    def value_from_datadict(self, data, files, name):
+        """
+        SelectMultipleField widget delegates processing of raw user data to
+        Django's SelectMultiple widget
+
+        Returns list or None
+        """
+        return super(FilteredSelectMultiple, self).value_from_datadict(
             data, files, name)
